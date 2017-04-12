@@ -750,26 +750,35 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
                     UIEdgeInsets newIndicatorInsets = originalScrollIndicatorInsets;
                     newInset.bottom = inter.size.height + extend;
                     newIndicatorInsets.bottom = newInset.bottom;
-                    UIViewAnimationOptions curve;
-                    if (kiOS7Later) {
-                        curve = 7 << 16;
-                    } else {
-                        curve = UIViewAnimationOptionCurveEaseInOut;
-                    }
-                    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction | curve animations:^{
-                        [super setContentInset:newInset];
-                        [super setScrollIndicatorInsets:newIndicatorInsets];
-                        [self scrollRectToVisible:CGRectInset(rect, -extend, -extend) animated:NO];
-                    } completion:NULL];
+//                    UIViewAnimationOptions curve;
+//                    if (kiOS7Later) {
+//                        curve = 7 << 16;
+//                    } else {
+//                        curve = UIViewAnimationOptionCurveEaseInOut;
+//                    }
+//                    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction | curve animations:^{
+//                        [super setContentInset:newInset];
+//                        [super setScrollIndicatorInsets:newIndicatorInsets];
+//                        [self scrollRectToVisible:CGRectInset(rect, -extend, -extend) animated:NO];
+//                    } completion:NULL];
+                    
+                    // Alan removed animation
+                    [super setContentInset:newInset];
+                    [super setScrollIndicatorInsets:newIndicatorInsets];
+                    [self scrollRectToVisible:CGRectInset(rect, -extend, -extend) animated:NO];
                 }
             }
         }
     }
     if (!insetModified) {
-        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut animations:^{
-            [self _restoreInsetsAnimated:NO];
-            [self scrollRectToVisible:CGRectInset(rect, -extend, -extend) animated:NO];
-        } completion:NULL];
+//        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut animations:^{
+//            [self _restoreInsetsAnimated:NO];
+//            [self scrollRectToVisible:CGRectInset(rect, -extend, -extend) animated:NO];
+//        } completion:NULL];
+        
+        // Alan removed animation
+        [self _restoreInsetsAnimated:NO];
+        [self scrollRectToVisible:CGRectInset(rect, -extend, -extend) animated:NO];
     }
 }
 
