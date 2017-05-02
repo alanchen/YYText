@@ -69,6 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface YYTextView : UIScrollView <UITextInput>
 
+// Alan add this property
+@property (nonatomic) BOOL disableScrollRangeToVisible;
 
 #pragma mark - Accessing the Delegate
 ///=============================================================================
