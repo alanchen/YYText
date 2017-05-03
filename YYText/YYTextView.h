@@ -46,6 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)textView:(YYTextView *)textView didTapHighlight:(YYTextHighlight *)highlight inRange:(NSRange)characterRange rect:(CGRect)rect;
 - (BOOL)textView:(YYTextView *)textView shouldLongPressHighlight:(YYTextHighlight *)highlight inRange:(NSRange)characterRange;
 - (void)textView:(YYTextView *)textView didLongPressHighlight:(YYTextHighlight *)highlight inRange:(NSRange)characterRange rect:(CGRect)rect;
+
+//Alan added
+- (void)textView:(YYTextView *)textView didChangeCursorLine:(CGRect)rect;
+
 @end
 
 
@@ -69,8 +73,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface YYTextView : UIScrollView <UITextInput>
 
-// Alan add this property
+// Alan add these property
 @property (nonatomic) BOOL disableScrollRangeToVisible;
+@property (nonatomic) CGRect cursorRect;
+
 
 #pragma mark - Accessing the Delegate
 ///=============================================================================

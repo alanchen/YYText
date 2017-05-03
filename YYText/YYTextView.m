@@ -784,6 +784,15 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
             [self scrollRectToVisible:CGRectInset(rect, -extend, -extend) animated:NO];
         }
     }
+    
+    BOOL isLineChanging = fabs(self.cursorRect.origin.y - rect.origin.y) > 5;
+    self.cursorRect = rect;
+    
+    if(isLineChanging){
+        if([self.delegate respondsToSelector:@selector(textView:didChangeCursorLine:)]){
+            [self.delegate textView:self didChangeCursorLine:rect];
+        }
+    }
 }
 
 /// Restore contents insets if modified by keyboard.
