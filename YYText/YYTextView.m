@@ -763,7 +763,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
 //                    } completion:NULL];
                     
                     // Alan removed animation
-                    if(self.disableScrollRangeToVisible){
+                    if(!self.disableScrollRangeToVisible){
                         [super setContentInset:newInset];
                         [super setScrollIndicatorInsets:newIndicatorInsets];
                         [self scrollRectToVisible:CGRectInset(rect, -extend, -extend) animated:NO];
@@ -779,7 +779,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
 //        } completion:NULL];
         
         // Alan removed animation
-        if(self.disableScrollRangeToVisible){
+        if(!self.disableScrollRangeToVisible){
             [self _restoreInsetsAnimated:NO];
             [self scrollRectToVisible:CGRectInset(rect, -extend, -extend) animated:NO];
         }
