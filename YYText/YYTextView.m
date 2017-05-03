@@ -784,15 +784,6 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
             [self scrollRectToVisible:CGRectInset(rect, -extend, -extend) animated:NO];
         }
     }
-    
-    BOOL isLineChanging = fabs(self.cursorRect.origin.y - rect.origin.y) > 5;
-    self.cursorRect = rect;
-    
-    if(isLineChanging){
-        if([self.delegate respondsToSelector:@selector(textView:didChangeCursorLine:)]){
-            [self.delegate textView:self didChangeCursorLine:rect];
-        }
-    }
 }
 
 /// Restore contents insets if modified by keyboard.
@@ -1948,6 +1939,18 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     if (NSEqualRanges(_selectedRange, selectedRange)) return;
     [self willChangeValueForKey:@"selectedRange"];
     _selectedRange = selectedRange;
+    
+    YYTextRange *range = [YYTextRange rangeWithRange:selectedRange];
+    CGRect rect = [_innerLayout rectForRange:range];
+    if (CGRectIsNull(rect)) return;
+    rect = [self _convertRectFromLayout:rect];
+    rect = [_containerView convertRect:rect toView:self];
+    if (rect.size.width < 1) rect.size.width = 1;
+    if (rect.size.height < 1) rect.size.height = 1;
+    CGFloat extend = 3;
+    rect = CGRectInset(rect, -extend, -extend);
+    self.cursorRect = rect;
+    
     [self didChangeValueForKey:@"selectedRange"];
     if ([self.delegate respondsToSelector:@selector(textViewDidChangeSelection:)]) {
         [self.delegate textViewDidChangeSelection:self];
