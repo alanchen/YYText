@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Alan add these property
 @property (nonatomic) BOOL disableScrollRangeToVisible;
 @property (nonatomic) CGRect cursorRect;
-
+-(void)calculateCursorRect;
 
 #pragma mark - Accessing the Delegate
 ///=============================================================================

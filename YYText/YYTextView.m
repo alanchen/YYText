@@ -1939,20 +1939,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     if (NSEqualRanges(_selectedRange, selectedRange)) return;
     [self willChangeValueForKey:@"selectedRange"];
     _selectedRange = selectedRange;
-    
-    YYTextRange *range = [YYTextRange rangeWithRange:selectedRange];
-    range = [self _correctedTextRange:range];
-    CGRect rect = [_innerLayout rectForRange:range];
-    if (!CGRectIsNull(rect)){
-        rect = [self _convertRectFromLayout:rect];
-        rect = [_containerView convertRect:rect toView:self];
-        if (rect.size.width < 1) rect.size.width = 1;
-        if (rect.size.height < 1) rect.size.height = 1;
-        CGFloat extend = 3;
-        rect = CGRectInset(rect, -extend, -extend);
-        self.cursorRect = rect;
-    }
-    
+    [self calculateCursorRect];
     [self didChangeValueForKey:@"selectedRange"];
     if ([self.delegate respondsToSelector:@selector(textViewDidChangeSelection:)]) {
         [self.delegate textViewDidChangeSelection:self];
@@ -2082,6 +2069,22 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     YYTextRange *textRange = [YYTextRange rangeWithRange:range];
     textRange = [self _correctedTextRange:textRange];
     [self _scrollRangeToVisible:textRange];
+}
+
+-(void)calculateCursorRect
+{
+    YYTextRange *range = [YYTextRange rangeWithRange:_selectedRange];
+    range = [self _correctedTextRange:range];
+    CGRect rect = [_innerLayout rectForRange:range];
+    if (!CGRectIsNull(rect)){
+        rect = [self _convertRectFromLayout:rect];
+        rect = [_containerView convertRect:rect toView:self];
+        if (rect.size.width < 1) rect.size.width = 1;
+        if (rect.size.height < 1) rect.size.height = 1;
+        CGFloat extend = 3;
+        rect = CGRectInset(rect, -extend, -extend);
+        self.cursorRect = rect;
+    }
 }
 
 #pragma mark - Property
@@ -2811,6 +2814,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
         [self _updateIfNeeded];
         [self _updateSelectionView];
         [self performSelector:@selector(_scrollSelectedRangeToVisible) withObject:nil afterDelay:0];
+        [self calculateCursorRect];
         if ([self.delegate respondsToSelector:@selector(textViewDidBeginEditing:)]) {
             [self.delegate textViewDidBeginEditing:self];
         }
