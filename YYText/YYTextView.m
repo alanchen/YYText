@@ -1941,15 +1941,17 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     _selectedRange = selectedRange;
     
     YYTextRange *range = [YYTextRange rangeWithRange:selectedRange];
+    range = [self _correctedTextRange:range];
     CGRect rect = [_innerLayout rectForRange:range];
-    if (CGRectIsNull(rect)) return;
-    rect = [self _convertRectFromLayout:rect];
-    rect = [_containerView convertRect:rect toView:self];
-    if (rect.size.width < 1) rect.size.width = 1;
-    if (rect.size.height < 1) rect.size.height = 1;
-    CGFloat extend = 3;
-    rect = CGRectInset(rect, -extend, -extend);
-    self.cursorRect = rect;
+    if (CGRectIsNull(rect)){
+        rect = [self _convertRectFromLayout:rect];
+        rect = [_containerView convertRect:rect toView:self];
+        if (rect.size.width < 1) rect.size.width = 1;
+        if (rect.size.height < 1) rect.size.height = 1;
+        CGFloat extend = 3;
+        rect = CGRectInset(rect, -extend, -extend);
+        self.cursorRect = rect;
+    }
     
     [self didChangeValueForKey:@"selectedRange"];
     if ([self.delegate respondsToSelector:@selector(textViewDidChangeSelection:)]) {
