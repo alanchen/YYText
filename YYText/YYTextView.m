@@ -1943,7 +1943,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     YYTextRange *range = [YYTextRange rangeWithRange:selectedRange];
     range = [self _correctedTextRange:range];
     CGRect rect = [_innerLayout rectForRange:range];
-    if (CGRectIsNull(rect)){
+    if (!CGRectIsNull(rect)){
         rect = [self _convertRectFromLayout:rect];
         rect = [_containerView convertRect:rect toView:self];
         if (rect.size.width < 1) rect.size.width = 1;
