@@ -46,6 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)textView:(YYTextView *)textView didTapHighlight:(YYTextHighlight *)highlight inRange:(NSRange)characterRange rect:(CGRect)rect;
 - (BOOL)textView:(YYTextView *)textView shouldLongPressHighlight:(YYTextHighlight *)highlight inRange:(NSRange)characterRange;
 - (void)textView:(YYTextView *)textView didLongPressHighlight:(YYTextHighlight *)highlight inRange:(NSRange)characterRange rect:(CGRect)rect;
+
+- (void)textViewDidBeginMovingGrabber:(YYTextView *)textView; // Alan
+- (void)textViewDidEndMovingGrabber:(YYTextView *)textView; // Alan
+
 @end
 
 

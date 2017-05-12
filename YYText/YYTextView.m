@@ -1027,6 +1027,9 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     if (!_state.trackingTouch) return;
     
     _state.trackingTouch = NO;
+    if( _state.trackingGrabber && [self.delegate respondsToSelector:@selector(textViewDidEndMovingGrabber:)]){
+        [self.delegate textViewDidEndMovingGrabber:self];
+    }
     _state.trackingGrabber = NO;
     _state.trackingCaret = NO;
     _state.trackingPreSelect = NO;
@@ -2617,6 +2620,9 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
                 [self _hideMenu];
                 [self _updateTextRangeByTrackingGrabber];
                 showMagnifierRanged = YES;
+                if([self.delegate respondsToSelector:@selector(textViewDidBeginMovingGrabber:)]){
+                    [self.delegate textViewDidBeginMovingGrabber:self];
+                }
             } else if (_state.trackingPreSelect) {
                 [self _updateTextRangeByTrackingPreSelect];
                 showMagnifierCaret = YES;
