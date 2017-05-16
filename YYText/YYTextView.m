@@ -2076,7 +2076,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
 
 -(void)calculateCursorRect
 {
-    YYTextRange *range = [YYTextRange rangeWithRange:_selectedRange affinity:YYTextAffinityBackward];
+    YYTextRange *range = [YYTextRange rangeWithRange:_selectedRange];
     range = [self _correctedTextRange:range];
     CGRect rect = [_innerLayout rectForRange:range];
     if (!CGRectIsNull(rect)){
