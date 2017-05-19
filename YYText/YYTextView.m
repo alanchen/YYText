@@ -58,7 +58,7 @@ static double _YYDeviceSystemVersion() {
 #define kDefaultUndoLevelMax 20 // Default maximum undo level
 
 #define kAutoScrollMinimumDuration 0.1 // Time in seconds to tick auto-scroll.
-#define kLongPressMinimumDuration 0.5 // Time in seconds the fingers must be held down for long press gesture.
+#define kLongPressMinimumDuration 1.0 // Time in seconds the fingers must be held down for long press gesture.
 #define kLongPressAllowableMovement 10.0 // Maximum movement in points allowed before the long press fails.
 
 #define kMagnifierRangedTrackFix -6.0 // Magnifier ranged offset fix.
