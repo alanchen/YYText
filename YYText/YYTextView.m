@@ -347,7 +347,6 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     } else {
         [self _endSelectionDotFixTimer];
     }
-    [self updateCursorRect];
 }
 
 /// Update inner contains's size.
@@ -2821,7 +2820,6 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
         [self _updateIfNeeded];
         [self _updateSelectionView];
         [self performSelector:@selector(_scrollSelectedRangeToVisible) withObject:nil afterDelay:0];
-        [self updateCursorRect];
         if ([self.delegate respondsToSelector:@selector(textViewDidBeginEditing:)]) {
             [self.delegate textViewDidBeginEditing:self];
         }
