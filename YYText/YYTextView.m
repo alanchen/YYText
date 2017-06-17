@@ -231,6 +231,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     _state.needUpdate = NO;
     [self _updateLayout];
     [self _updateSelectionView];
+    [self updateCursorRect];
 }
 
 /// Update layout immediately.
@@ -1942,7 +1943,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     if (NSEqualRanges(_selectedRange, selectedRange)) return;
     [self willChangeValueForKey:@"selectedRange"];
     _selectedRange = selectedRange;
-    [self calculateCursorRect];
+    [self updateCursorRect];
     [self didChangeValueForKey:@"selectedRange"];
     if ([self.delegate respondsToSelector:@selector(textViewDidChangeSelection:)]) {
         [self.delegate textViewDidChangeSelection:self];
@@ -2074,7 +2075,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     [self _scrollRangeToVisible:textRange];
 }
 
--(void)calculateCursorRect
+-(void)updateCursorRect
 {
     YYTextRange *range = [YYTextRange rangeWithRange:_selectedRange];
     range = [self _correctedTextRange:range];
@@ -2820,7 +2821,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
         [self _updateIfNeeded];
         [self _updateSelectionView];
         [self performSelector:@selector(_scrollSelectedRangeToVisible) withObject:nil afterDelay:0];
-        [self calculateCursorRect];
+        [self updateCursorRect];
         if ([self.delegate respondsToSelector:@selector(textViewDidBeginEditing:)]) {
             [self.delegate textViewDidBeginEditing:self];
         }
