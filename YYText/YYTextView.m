@@ -231,7 +231,6 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     _state.needUpdate = NO;
     [self _updateLayout];
     [self _updateSelectionView];
-    [self updateCursorRect];
 }
 
 /// Update layout immediately.
@@ -348,6 +347,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     } else {
         [self _endSelectionDotFixTimer];
     }
+    [self updateCursorRect];
 }
 
 /// Update inner contains's size.
