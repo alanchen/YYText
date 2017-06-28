@@ -3467,7 +3467,8 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
     [self _hideMenu];
     
     // Alan sets it to NO because of typing lag problem.
-    [self _replaceRange:range withText:text notifyToDelegate:NO];
+    // It need to be YES, otherwise the cursor rect will be wrong.
+    [self _replaceRange:range withText:text notifyToDelegate:YES];
     if (useInnerAttributes) {
         [_innerText yy_setAttributes:_typingAttributesHolder.yy_attributes];
     } else if (applyTypingAttributes) {
