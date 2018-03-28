@@ -2087,6 +2087,20 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
         CGFloat extend = 3;
         rect = CGRectInset(rect, -extend, -extend);
         self.cursorRect = rect;
+    }else{
+        [self _updateLayout];
+        range = [YYTextRange rangeWithRange:_selectedRange];
+        range = [self _correctedTextRange:range];
+        rect = [_innerLayout rectForRange:range];
+        if (!CGRectIsNull(rect)){
+            rect = [self _convertRectFromLayout:rect];
+            rect = [_containerView convertRect:rect toView:self];
+            if (rect.size.width < 1) rect.size.width = 1;
+            if (rect.size.height < 1) rect.size.height = 1;
+            CGFloat extend = 3;
+            rect = CGRectInset(rect, -extend, -extend);
+            self.cursorRect = rect;
+        }
     }
 }
 
