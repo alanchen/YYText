@@ -3040,7 +3040,7 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
             self.selectedRange = NSMakeRange(range.end.offset, 0);
         }
     } else {
-        NSString *string = p.string;
+        NSString *string = [p.strings componentsJoinedByString:@"\n"]; // Alan fixed
         if (string.length > 0) {
             [self _saveToUndoStack];
             [self _resetRedoStack];
